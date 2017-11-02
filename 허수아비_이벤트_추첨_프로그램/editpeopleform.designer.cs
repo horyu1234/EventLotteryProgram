@@ -43,13 +43,14 @@
             this.btn_from_file = new MetroFramework.Controls.MetroButton();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.metroTextBox2 = new MetroFramework.Controls.MetroTextBox();
             this.metroRadioButton3 = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.fileInput = new MetroFramework.Controls.MetroTextBox();
             this.tbx_people_name = new MetroFramework.Controls.MetroTextBox();
             this.tbx_people_phone = new MetroFramework.Controls.MetroTextBox();
             this.btn_people_add = new MetroFramework.Controls.MetroButton();
@@ -129,7 +130,6 @@
             this.btn_from_file.Size = new System.Drawing.Size(374, 58);
             this.btn_from_file.TabIndex = 4;
             this.btn_from_file.Text = "파일로 부터 불러오기";
-            this.btn_from_file.UseSelectable = true;
             this.btn_from_file.Click += new System.EventHandler(this.btn_from_file_Click);
             // 
             // label1
@@ -144,9 +144,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.metroTextBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.metroButton1);
-            this.groupBox1.Controls.Add(this.metroTextBox1);
+            this.groupBox1.Controls.Add(this.fileInput);
             this.groupBox1.Controls.Add(this.btn_from_file);
             this.groupBox1.Location = new System.Drawing.Point(472, 92);
             this.groupBox1.Name = "groupBox1";
@@ -154,6 +155,13 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "파일로 부터 불러오기";
+            // 
+            // metroTextBox3
+            // 
+            this.metroTextBox3.Location = new System.Drawing.Point(0, 0);
+            this.metroTextBox3.Name = "metroTextBox3";
+            this.metroTextBox3.Size = new System.Drawing.Size(0, 22);
+            this.metroTextBox3.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -172,19 +180,13 @@
             // metroTextBox2
             // 
             this.metroTextBox2.Enabled = false;
-            this.metroTextBox2.Lines = new string[] {
-        " "};
             this.metroTextBox2.Location = new System.Drawing.Point(261, 16);
             this.metroTextBox2.MaxLength = 5;
             this.metroTextBox2.Name = "metroTextBox2";
-            this.metroTextBox2.PasswordChar = '\0';
             this.metroTextBox2.PromptText = "문자";
-            this.metroTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBox2.SelectedText = "";
             this.metroTextBox2.Size = new System.Drawing.Size(104, 23);
             this.metroTextBox2.TabIndex = 17;
             this.metroTextBox2.Text = " ";
-            this.metroTextBox2.UseSelectable = true;
             this.metroTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.metroTextBox2_KeyUp);
             // 
             // metroRadioButton3
@@ -195,7 +197,6 @@
             this.metroRadioButton3.Size = new System.Drawing.Size(47, 15);
             this.metroRadioButton3.TabIndex = 16;
             this.metroRadioButton3.Text = "기타";
-            this.metroRadioButton3.UseSelectable = true;
             this.metroRadioButton3.CheckedChanged += new System.EventHandler(this.metroRadioButton3_CheckedChanged);
             // 
             // metroRadioButton2
@@ -206,7 +207,6 @@
             this.metroRadioButton2.Size = new System.Drawing.Size(28, 15);
             this.metroRadioButton2.TabIndex = 15;
             this.metroRadioButton2.Text = "/";
-            this.metroRadioButton2.UseSelectable = true;
             this.metroRadioButton2.CheckedChanged += new System.EventHandler(this.metroRadioButton2_CheckedChanged);
             // 
             // metroRadioButton1
@@ -219,7 +219,6 @@
             this.metroRadioButton1.TabIndex = 14;
             this.metroRadioButton1.TabStop = true;
             this.metroRadioButton1.Text = "공백";
-            this.metroRadioButton1.UseSelectable = true;
             this.metroRadioButton1.CheckedChanged += new System.EventHandler(this.metroRadioButton1_CheckedChanged);
             // 
             // metroButton1
@@ -229,51 +228,32 @@
             this.metroButton1.Size = new System.Drawing.Size(50, 23);
             this.metroButton1.TabIndex = 13;
             this.metroButton1.Text = "...";
-            this.metroButton1.UseSelectable = true;
             this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
-            // metroTextBox1
+            // fileInput
             // 
-            this.metroTextBox1.Lines = new string[0];
-            this.metroTextBox1.Location = new System.Drawing.Point(6, 20);
-            this.metroTextBox1.MaxLength = 32767;
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.PasswordChar = '\0';
-            this.metroTextBox1.PromptText = "파일을 선택해주세요 -->";
-            this.metroTextBox1.ReadOnly = true;
-            this.metroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBox1.SelectedText = "";
-            this.metroTextBox1.Size = new System.Drawing.Size(318, 23);
-            this.metroTextBox1.TabIndex = 12;
-            this.metroTextBox1.UseSelectable = true;
+            this.fileInput.Location = new System.Drawing.Point(6, 20);
+            this.fileInput.Name = "fileInput";
+            this.fileInput.PromptText = "파일을 선택해주세요 -->";
+            this.fileInput.ReadOnly = true;
+            this.fileInput.Size = new System.Drawing.Size(318, 23);
+            this.fileInput.TabIndex = 12;
             // 
             // tbx_people_name
             // 
-            this.tbx_people_name.Lines = new string[0];
             this.tbx_people_name.Location = new System.Drawing.Point(472, 443);
-            this.tbx_people_name.MaxLength = 32767;
             this.tbx_people_name.Name = "tbx_people_name";
-            this.tbx_people_name.PasswordChar = '\0';
             this.tbx_people_name.PromptText = "이름";
-            this.tbx_people_name.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbx_people_name.SelectedText = "";
             this.tbx_people_name.Size = new System.Drawing.Size(118, 23);
             this.tbx_people_name.TabIndex = 1;
-            this.tbx_people_name.UseSelectable = true;
             // 
             // tbx_people_phone
             // 
-            this.tbx_people_phone.Lines = new string[0];
             this.tbx_people_phone.Location = new System.Drawing.Point(596, 443);
-            this.tbx_people_phone.MaxLength = 32767;
             this.tbx_people_phone.Name = "tbx_people_phone";
-            this.tbx_people_phone.PasswordChar = '\0';
             this.tbx_people_phone.PromptText = "전화번호";
-            this.tbx_people_phone.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbx_people_phone.SelectedText = "";
             this.tbx_people_phone.Size = new System.Drawing.Size(181, 23);
             this.tbx_people_phone.TabIndex = 2;
-            this.tbx_people_phone.UseSelectable = true;
             this.tbx_people_phone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbx_people_phone_KeyDown);
             // 
             // btn_people_add
@@ -283,7 +263,6 @@
             this.btn_people_add.Size = new System.Drawing.Size(75, 23);
             this.btn_people_add.TabIndex = 3;
             this.btn_people_add.Text = "추가";
-            this.btn_people_add.UseSelectable = true;
             this.btn_people_add.Click += new System.EventHandler(this.btn_people_add_Click);
             // 
             // EditPeopleForm
@@ -336,9 +315,10 @@
         private MetroFramework.Controls.MetroRadioButton metroRadioButton2;
         private MetroFramework.Controls.MetroRadioButton metroRadioButton1;
         private MetroFramework.Controls.MetroButton metroButton1;
-        private MetroFramework.Controls.MetroTextBox metroTextBox1;
+        private MetroFramework.Controls.MetroTextBox fileInput;
         private MetroFramework.Controls.MetroTextBox tbx_people_name;
         private MetroFramework.Controls.MetroTextBox tbx_people_phone;
         private MetroFramework.Controls.MetroButton btn_people_add;
+        private MetroFramework.Controls.MetroTextBox metroTextBox3;
     }
 }

@@ -275,7 +275,7 @@ namespace 허수아비_이벤트_추첨_프로그램
 
         private void btn_from_file_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.metroTextBox1.Text))
+            if (string.IsNullOrEmpty(this.fileInput.Text))
             {
                 MessageBox.Show("파일을 선택해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -294,7 +294,7 @@ namespace 허수아비_이벤트_추첨_프로그램
         {
             try
             {
-                string[] lines = File.ReadAllLines(this.metroTextBox1.Text, GetEncoding(this.metroTextBox1.Text));
+                string[] lines = File.ReadAllLines(this.fileInput.Text, GetEncoding(this.fileInput.Text));
 
                 foreach (string line in lines)
                 {
@@ -358,7 +358,7 @@ namespace 허수아비_이벤트_추첨_프로그램
             fileDialog.Filter = "텍스트 파일(*.txt)|*.txt|모든 파일(*.*)|*.*";
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.metroTextBox1.Text = fileDialog.FileName;
+                this.fileInput.Text = fileDialog.FileName;
             }
         }
     }

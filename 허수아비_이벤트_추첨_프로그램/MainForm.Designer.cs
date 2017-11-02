@@ -54,7 +54,6 @@
             this.btn_edit_people.Size = new System.Drawing.Size(133, 44);
             this.btn_edit_people.TabIndex = 1;
             this.btn_edit_people.Text = "추첨 대상자 수정";
-            this.btn_edit_people.UseSelectable = true;
             this.btn_edit_people.Click += new System.EventHandler(this.btn_edit_people_Click);
             // 
             // btn_edit_prize
@@ -64,7 +63,6 @@
             this.btn_edit_prize.Size = new System.Drawing.Size(133, 44);
             this.btn_edit_prize.TabIndex = 2;
             this.btn_edit_prize.Text = "상품 수정";
-            this.btn_edit_prize.UseSelectable = true;
             this.btn_edit_prize.Click += new System.EventHandler(this.btn_edit_prize_Click);
             // 
             // treeView1
@@ -82,7 +80,6 @@
             this.btn_pickup_one.Size = new System.Drawing.Size(272, 44);
             this.btn_pickup_one.TabIndex = 4;
             this.btn_pickup_one.Text = "추첨";
-            this.btn_pickup_one.UseSelectable = true;
             this.btn_pickup_one.Click += new System.EventHandler(this.btn_pickup_one_Click);
             // 
             // cbx_multi_phone
@@ -95,7 +92,6 @@
             this.cbx_multi_phone.Size = new System.Drawing.Size(160, 15);
             this.cbx_multi_phone.TabIndex = 7;
             this.cbx_multi_phone.Text = "중복 추첨 제외 - 전화번호";
-            this.cbx_multi_phone.UseSelectable = true;
             // 
             // cbx_hide
             // 
@@ -107,7 +103,6 @@
             this.cbx_hide.Size = new System.Drawing.Size(280, 15);
             this.cbx_hide.TabIndex = 8;
             this.cbx_hide.Text = "개인정보 일부 가림 (찰영 중 반드시 활성화 필요)";
-            this.cbx_hide.UseSelectable = true;
             this.cbx_hide.CheckedChanged += new System.EventHandler(this.cbx_hide_CheckedChanged);
             // 
             // timer1
