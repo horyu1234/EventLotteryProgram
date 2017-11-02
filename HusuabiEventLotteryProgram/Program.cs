@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace 허수아비_이벤트_추첨_프로그램
+namespace HusuabiEventLotteryProgram
 {
     static class Program
     {

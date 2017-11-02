@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "허수아비_이벤트_추첨_프로그램", "허수아비_이벤트_추첨_프로그램\허수아비_이벤트_추첨_프로그램.csproj", "{AB582BA1-BAA1-401E-870A-84B2578C2420}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HusuabiEventLotteryProgram", "HusuabiEventLotteryProgram\HusuabiEventLotteryProgram.csproj", "{AB582BA1-BAA1-401E-870A-84B2578C2420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3B79D6A-BF72-4768-A755-5216C03A5D0A}
 	EndGlobalSection
 EndGlobal

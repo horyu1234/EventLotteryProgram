@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace 허수아비_이벤트_추첨_프로그램.Properties
+namespace HusuabiEventLotteryProgram.Properties
 {
 
 

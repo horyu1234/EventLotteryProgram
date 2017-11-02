@@ -17,7 +17,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 
-namespace 허수아비_이벤트_추첨_프로그램
+namespace HusuabiEventLotteryProgram
 {
     public partial class MainForm : MetroForm
     {
