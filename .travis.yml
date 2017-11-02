@@ -1,5 +1,5 @@
 language: csharp
-solution: 허수아비_이벤트_추첨_프로그램.sln
+solution: HusuabiEventLotteryProgram.sln
 install:
   - sudo apt-get install -y gtk-sharp2
-  - nuget restore 허수아비_이벤트_추첨_프로그램.sln
+  - nuget restore HusuabiEventLotteryProgram.sln
