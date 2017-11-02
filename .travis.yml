@@ -1,5 +1,9 @@
 language: csharp
-solution: HusuabiEventLotteryProgram.sln
+dist: trusty
+mono: none
+dotnet: 4.5.2
 install:
-  - sudo apt-get install -y gtk-sharp2
-  - nuget restore HusuabiEventLotteryProgram.sln
+- dotnet restore
+script:
+- dotnet build
+- dotnet test Core.Shogi.Tests/Core.Shogi.Tests.csproj
