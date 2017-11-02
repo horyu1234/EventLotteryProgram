@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AB582BA1-BAA1-401E-870A-84B2578C2420}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>허수아비_이벤트_추첨_프로그램</RootNamespace>
-    <AssemblyName>허수아비_이벤트_추첨_프로그램</AssemblyName>
+    <RootNamespace>HusuabiEventLotteryProgram</RootNamespace>
+    <AssemblyName>HusuabiEventLotteryProgram</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
