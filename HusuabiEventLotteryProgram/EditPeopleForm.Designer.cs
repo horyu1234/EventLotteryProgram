@@ -277,7 +277,6 @@
             this.Controls.Add(this.tbx_people_phone);
             this.Controls.Add(this.tbx_people_name);
             this.Controls.Add(this.listView1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditPeopleForm";

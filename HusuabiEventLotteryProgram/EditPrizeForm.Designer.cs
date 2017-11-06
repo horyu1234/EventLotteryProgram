@@ -89,7 +89,6 @@
             this.ClientSize = new System.Drawing.Size(497, 534);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.dataGridView1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditPrizeForm";

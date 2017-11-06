@@ -135,7 +135,6 @@
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.btn_edit_prize);
             this.Controls.Add(this.btn_edit_people);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "허수아비 이벤트 추첨 프로그램 v1.1";
             this.Load += new System.EventHandler(this.MainForm_Load);
