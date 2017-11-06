@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -30,12 +31,29 @@ namespace HusuabiEventLotteryProgram
 
         private void EditPeopleForm_Load(object sender, EventArgs e)
         {
+            SetProgramIcon();
+
             _mainForm.SetFont(this.listView1);
             _mainForm.SetFont(this.groupBox1);
             _mainForm.SetFont(this.label1);
 
             Thread thread = new Thread(new ThreadStart(LoadPeoples));
             thread.Start();
+        }
+
+        private void SetProgramIcon()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var programIconStream =
+                assembly.GetManifestResourceStream("HusuabiEventLotteryProgram.HusuabiEventLotteryProgramIcon.ico");
+
+            if (programIconStream == null)
+            {
+                return;
+            }
+
+            var icon = new Icon(programIconStream);
+            this.Icon = icon;
         }
 
         private void LoadPeoples()

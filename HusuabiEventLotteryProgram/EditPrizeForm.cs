@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -86,13 +87,30 @@ namespace HusuabiEventLotteryProgram
 
         private void EditPrizeForm_Load(object sender, EventArgs e)
         {
+            SetProgramIcon();
+
+            _mainForm.SetFont(this.dataGridView1);
+
             this.dataGridView1.Rows.Clear();
             foreach (Prize prize in _mainForm.GetPrize())
             {
                 this.dataGridView1.Rows.Add(prize.Supporter, prize.Name, prize.Amount);
             }
+        }
 
-            _mainForm.SetFont(this.dataGridView1);
+        private void SetProgramIcon()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var programIconStream =
+                assembly.GetManifestResourceStream("HusuabiEventLotteryProgram.HusuabiEventLotteryProgramIcon.ico");
+
+            if (programIconStream == null)
+            {
+                return;
+            }
+
+            var icon = new Icon(programIconStream);
+            this.Icon = icon;
         }
     }
 }

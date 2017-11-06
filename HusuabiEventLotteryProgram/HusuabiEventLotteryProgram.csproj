@@ -117,7 +117,7 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HusuabiEventLotteryProgramIcon.ico" />
+    <EmbeddedResource Include="HusuabiEventLotteryProgramIcon.ico" />
     <Content Include="MetroFramework.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
