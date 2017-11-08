@@ -11,6 +11,7 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -29,7 +30,8 @@ namespace HusuabiEventLotteryProgram
 
         public MainForm()
         {
-            _privateFonts.AddFontFile(Path.Combine(Application.StartupPath, "Fonts/NanumSquareR.ttf"));
+            AddFontFromResource("HusuabiEventLotteryProgram.NanumSquareR.ttf");
+
             this.StyleManager = this.metroStyleManager;
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -41,6 +43,29 @@ namespace HusuabiEventLotteryProgram
             //                people.Phone = "010-00" + i + "-1234";
             //                _peoples.Add(people);
             //            }
+        }
+
+        private void AddFontFromResource(string resourceName)
+        {
+            var fontBytes = GetFontResourceBytes(resourceName);
+            var fontData = Marshal.AllocCoTaskMem(fontBytes.Length);
+
+            Marshal.Copy(fontBytes, 0, fontData, fontBytes.Length);
+            _privateFonts.AddMemoryFont(fontData, fontBytes.Length);
+            Marshal.FreeCoTaskMem(fontData);
+        }
+
+        private static byte[] GetFontResourceBytes(string fontResourceName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceStream = assembly.GetManifestResourceStream(fontResourceName);
+            if (resourceStream == null)
+                throw new Exception(string.Format("Unable to find font '{0}' in embedded resources.",
+                    fontResourceName));
+            var fontBytes = new byte[resourceStream.Length];
+            resourceStream.Read(fontBytes, 0, (int) resourceStream.Length);
+            resourceStream.Close();
+            return fontBytes;
         }
 
         private void btn_edit_prize_Click(object sender, EventArgs e)
@@ -152,7 +177,7 @@ namespace HusuabiEventLotteryProgram
             foreach (char c in phone)
             {
                 i++;
-                result += i > amount ? "*" : new string(new char[] { c });
+                result += i > amount ? "*" : new string(new char[] {c});
             }
             return result;
         }
@@ -275,7 +300,8 @@ namespace HusuabiEventLotteryProgram
         {
             foreach (People people1 in _lotteryList)
             {
-                if (this.cbx_multi_phone.Checked && people1.Phone.Replace("-", string.Empty).Equals(people.Phone.Replace("-", string.Empty)))
+                if (this.cbx_multi_phone.Checked && people1.Phone.Replace("-", string.Empty)
+                        .Equals(people.Phone.Replace("-", string.Empty)))
                 {
                     return true;
                 }
@@ -305,7 +331,7 @@ namespace HusuabiEventLotteryProgram
 
             double randomValueInRange = Math.Floor(multiplier * range);
 
-            return (int)(minimumValue + randomValueInRange);
+            return (int) (minimumValue + randomValueInRange);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -343,26 +369,31 @@ namespace HusuabiEventLotteryProgram
                     var values = new NameValueCollection();
                     values["program"] = "허수아비_이벤트_추첨_프로그램";
                     values["version"] = "1.1";
-                    byte[] response = client.UploadValues("http://cafe24_horyu.horyu.me/Program/disable_check.php", values); //byte[] 값 수신
+                    byte[] response =
+                        client.UploadValues("http://cafe24_horyu.horyu.me/Program/disable_check.php",
+                            values); //byte[] 값 수신
                     string responseString = Encoding.UTF8.GetString(response); //수신값 string로 변환
                     string res = responseString.Replace("<meta charset=\"utf-8\">", "");
                     if (res.Contains("true^"))
                     {
                         string reason = res.Replace("true^", "");
-                        MessageBox.Show("프로그램 실행이 차단되었습니다.\n\n사유: " + reason, "경고", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("프로그램 실행이 차단되었습니다.\n\n사유: " + reason, "경고", MessageBoxButtons.OK,
+                            MessageBoxIcon.Stop);
                         System.Diagnostics.Process.GetCurrentProcess().Kill();
                     }
                     else if (!res.Contains("false"))
                     {
                         MessageBox.Show(res);
-                        MessageBox.Show("인증 서버에서 오는 응답이 이상합니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("인증 서버에서 오는 응답이 이상합니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK,
+                            MessageBoxIcon.Stop);
                         System.Diagnostics.Process.GetCurrentProcess().Kill();
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("인증 서버에 접속하는데 실패했습니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("인증 서버에 접속하는데 실패했습니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop);
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
         }
@@ -411,7 +442,8 @@ namespace HusuabiEventLotteryProgram
         private string GetMD5()
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            FileStream stream = new FileStream(Process.GetCurrentProcess().MainModule.FileName, FileMode.Open, FileAccess.Read);
+            FileStream stream = new FileStream(Process.GetCurrentProcess().MainModule.FileName, FileMode.Open,
+                FileAccess.Read);
 
             md5.ComputeHash(stream);
 

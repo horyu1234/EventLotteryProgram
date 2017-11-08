@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
             this.btn_edit_people = new MetroFramework.Controls.MetroButton();
@@ -118,16 +117,17 @@
             this.label2.Location = new System.Drawing.Point(23, 544);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(683, 90);
+            this.label2.Size = new System.Drawing.Size(683, 105);
             this.label2.TabIndex = 11;
             this.label2.Text = "본 프로그램은 유튜버 \"허수아비\" 님을 위해 개발되었으며, 다른 곳에서는 사용이 불가합니다.\r\n\r\n개발자: 류현오(horyu1234)\r\n프로필 사" +
-    "이트: https://activity.horyu.me\r\n\r\nCopyright horyu1234 All rights reserved";
+    "이트: https://activity.horyu.me\r\n\r\nCopyright horyu1234 All rights reserved\r\n* 본 프로" +
+    "그램에는 네이버에서 제공한 나눔글꼴이 적용되어 있습니다.";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 665);
+            this.ClientSize = new System.Drawing.Size(879, 684);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbx_hide);
             this.Controls.Add(this.cbx_multi_phone);
