@@ -22,6 +22,7 @@ namespace HusuabiEventLotteryProgram
 {
     public partial class MainForm : MetroForm
     {
+        private const string ProgramVersion = "1.2.0";
         private readonly PrivateFontCollection _privateFonts = new PrivateFontCollection();
         private List<People> _peoples = new List<People>();
         private List<Prize> _prizes = new List<Prize>();
@@ -336,7 +337,9 @@ namespace HusuabiEventLotteryProgram
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            disableCheck();
+            this.Text = "허수아비 이벤트 추첨 프로그램 v" + ProgramVersion;
+
+            DisableCheck();
             new Thread(new ThreadStart(stats)).Start();
 
             SetProgramIcon();
@@ -360,41 +363,39 @@ namespace HusuabiEventLotteryProgram
             this.Icon = icon;
         }
 
-        public void disableCheck()
+        public void DisableCheck()
         {
             try
             {
                 using (var client = new WebClient())
                 {
-                    var values = new NameValueCollection();
-                    values["program"] = "허수아비_이벤트_추첨_프로그램";
-                    values["version"] = "1.1";
                     byte[] response =
-                        client.UploadValues("http://cafe24_horyu.horyu.me/Program/disable_check.php",
-                            values); //byte[] 값 수신
+                        client.DownloadData("http://checker.horyu.me/program/HusuabiEventLotteryProgram/" +
+                                            ProgramVersion); //byte[] 값 수신
                     string responseString = Encoding.UTF8.GetString(response); //수신값 string로 변환
-                    string res = responseString.Replace("<meta charset=\"utf-8\">", "");
-                    if (res.Contains("true^"))
+
+                    if (responseString.Contains("true^"))
                     {
-                        string reason = res.Replace("true^", "");
-                        MessageBox.Show("프로그램 실행이 차단되었습니다.\n\n사유: " + reason, "경고", MessageBoxButtons.OK,
-                            MessageBoxIcon.Stop);
-                        System.Diagnostics.Process.GetCurrentProcess().Kill();
+                        string reason = responseString.Replace("true^", "");
+                        MessageBox.Show("프로그램 실행이 차단되었습니다.\n\n사유:" + reason, "경고",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        Process.GetCurrentProcess().Kill();
                     }
-                    else if (!res.Contains("false"))
+                    else if (!responseString.Contains("false"))
                     {
-                        MessageBox.Show(res);
-                        MessageBox.Show("인증 서버에서 오는 응답이 이상합니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK,
-                            MessageBoxIcon.Stop);
-                        System.Diagnostics.Process.GetCurrentProcess().Kill();
+                        MessageBox.Show("서버에서 보내는 응답을 해석 할 수 없습니다\n\n프로그램 접근이 거부되었습니다.\n" + responseString, "경고",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        Process.GetCurrentProcess().Kill();
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("인증 서버에 접속하는데 실패했습니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK,
-                    MessageBoxIcon.Stop);
-                System.Diagnostics.Process.GetCurrentProcess().Kill();
+                MessageBox.Show("인증 서버에 접속하는 중 오류가 발생하였습니다.\n\n프로그램 접근이 거부되었습니다.", "경고", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Process.GetCurrentProcess().Kill();
             }
         }
 
@@ -407,7 +408,7 @@ namespace HusuabiEventLotteryProgram
                     var values = new NameValueCollection();
                     string[] os_info = getOSInfo();
                     values["program"] = "허수아비_이벤트_추첨_프로그램";
-                    values["version"] = "1.1";
+                    values["version"] = ProgramVersion;
                     values["username"] = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                     values["caption"] = os_info[0];
                     values["csname"] = os_info[1];
