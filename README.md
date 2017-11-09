@@ -5,7 +5,10 @@
 허수아비 이벤트 추첨 프로그램입니다.  
 공정성을 위하여 프로그램 소스 전체를 공개합니다.  
 
+---
+
 프로그램 소스 사용은 [라이선스](https://github.com/horyu1234/HusuabiEventLotteryProgram/blob/master/LICENSE.md)를 반드시 확인해주세요.  
+프로그램에 버그 또는 문제가 있다면 [이슈 생성](https://github.com/horyu1234/HusuabiEventLotteryProgram/issues/new) 으로 제보 부탁드립니다.
 
 최신 릴리즈 다운로드: https://github.com/horyu1234/HusuabiEventLotteryProgram/releases
 
