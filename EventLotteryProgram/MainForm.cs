@@ -342,7 +342,6 @@ namespace EventLotteryProgram
             SetProgramIcon();
 
             SetFont(this.treeView1);
-            SetFont(this.label2);
         }
 
         private void SetProgramIcon()

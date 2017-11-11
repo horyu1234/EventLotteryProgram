@@ -38,13 +38,14 @@
             this.cbx_multi_phone = new MetroFramework.Controls.MetroCheckBox();
             this.cbx_hide = new MetroFramework.Controls.MetroCheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // metroStyleManager
             // 
-            this.metroStyleManager.Owner = null;
+            this.metroStyleManager.Owner = this;
             // 
             // btn_edit_people
             // 
@@ -66,7 +67,10 @@
             // 
             // treeView1
             // 
+            this.metroStyleExtender.SetApplyMetroTheme(this.treeView1, true);
+            this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.treeView1.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.treeView1.Location = new System.Drawing.Point(23, 63);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(555, 473);
@@ -109,25 +113,24 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label2
+            // pictureBox1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(134)))), ((int)(((byte)(203)))));
-            this.label2.Location = new System.Drawing.Point(23, 544);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(511, 75);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "개발자: 류현오(horyu1234)\r\n프로필 사이트: https://activity.horyu.me\r\n\r\nCopyright horyu1234 Al" +
-    "l rights reserved\r\n* 본 프로그램에는 네이버에서 제공한 나눔글꼴이 적용되어 있습니다.";
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::EventLotteryProgram.Properties.Resources.EventLotteryProgramFooter;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 548);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(833, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 647);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(879, 621);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbx_hide);
             this.Controls.Add(this.cbx_multi_phone);
             this.Controls.Add(this.btn_pickup_one);
@@ -138,6 +141,7 @@
             this.Text = "이벤트 추첨 프로그램";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,7 +158,7 @@
         private MetroFramework.Controls.MetroCheckBox cbx_multi_phone;
         private MetroFramework.Controls.MetroCheckBox cbx_hide;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

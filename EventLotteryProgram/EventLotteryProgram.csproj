@@ -104,6 +104,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="NanumSquareR.ttf" />
     <None Include="packages.config" />
@@ -124,6 +125,7 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\EventLotteryProgramFooter.png" />
     <EmbeddedResource Include="EventLotteryProgramIcon.ico" />
     <Content Include="MetroFramework.txt" />
   </ItemGroup>
