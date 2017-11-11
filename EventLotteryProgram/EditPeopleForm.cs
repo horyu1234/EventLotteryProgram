@@ -16,7 +16,6 @@ namespace EventLotteryProgram
     public partial class EditPeopleForm : MetroForm
     {
         private readonly MainForm _mainForm;
-        private List<People> _removed = new List<People>();
         private bool _ignoreCloseEvent = false;
 
         public EditPeopleForm(MainForm mainForm)
@@ -168,48 +167,6 @@ namespace EventLotteryProgram
             _mainForm.SetPeople(peoples);
 
             this.Close();
-        }
-
-        private List<People> GetPeopleFromListView()
-        {
-            List<People> peoples = new List<People>();
-            foreach (ListViewItem item in this.listView1.Items)
-            {
-                People people = new People()
-                {
-                    Name = item.SubItems[1].Text,
-                    Phone = item.SubItems[2].Text
-                };
-
-                peoples.Add(people);
-            }
-            return peoples;
-        }
-
-        private bool HasPhone(List<People> peoples, string phone)
-        {
-            foreach (People people in peoples)
-            {
-                if (people.Phone == null)
-                {
-                    continue;
-                }
-
-                string first = people.Phone.Replace("-", string.Empty);
-                string second = phone.Replace("-", string.Empty);
-
-                if (first.Equals(second))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private DateTime FromUnixTime(long unixTime)
-        {
-            DateTime epoch = new DateTime(1970, 1, 1, 9, 0, 0, DateTimeKind.Local);
-            return epoch.AddMilliseconds(unixTime);
         }
 
         private void listView1_MouseClick(object sender, MouseEventArgs e)
