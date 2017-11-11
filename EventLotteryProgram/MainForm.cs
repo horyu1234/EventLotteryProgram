@@ -19,7 +19,7 @@ namespace EventLotteryProgram
 {
     public partial class MainForm : MetroForm
     {
-        private const string ProgramVersion = "1.0.0";
+        private const string ProgramVersion = "1.3.0";
         private readonly PrivateFontCollection _privateFonts = new PrivateFontCollection();
         private List<People> _peoples = new List<People>();
         private List<Prize> _prizes = new List<Prize>();
