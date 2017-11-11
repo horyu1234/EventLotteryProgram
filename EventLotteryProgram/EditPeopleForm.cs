@@ -41,7 +41,7 @@ namespace EventLotteryProgram
         {
             var assembly = Assembly.GetExecutingAssembly();
             var programIconStream =
-                assembly.GetManifestResourceStream("EventLotteryProgram.EventLotteryProgramIcon.ico");
+                assembly.GetManifestResourceStream("EventLotteryProgram.Resources.EventLotteryProgramIcon.ico");
 
             if (programIconStream == null)
             {

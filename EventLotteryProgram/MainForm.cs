@@ -28,7 +28,7 @@ namespace EventLotteryProgram
 
         public MainForm()
         {
-            AddFontFromResource("EventLotteryProgram.NanumSquareR.ttf");
+            AddFontFromResource("EventLotteryProgram.Resources.NanumSquareR.ttf");
 
             this.StyleManager = this.metroStyleManager;
             InitializeComponent();
@@ -348,7 +348,7 @@ namespace EventLotteryProgram
         {
             var assembly = Assembly.GetExecutingAssembly();
             var programIconStream =
-                assembly.GetManifestResourceStream("EventLotteryProgram.EventLotteryProgramIcon.ico");
+                assembly.GetManifestResourceStream("EventLotteryProgram.Resources.EventLotteryProgramIcon.ico");
 
             if (programIconStream == null)
             {

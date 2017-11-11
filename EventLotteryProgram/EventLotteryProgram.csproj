@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>EventLotteryProgramIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\EventLotteryProgramIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
@@ -106,7 +106,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="NanumSquareR.ttf" />
+    <EmbeddedResource Include="Resources\NanumSquareR.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\EventLotteryProgramFooter.png" />
-    <EmbeddedResource Include="EventLotteryProgramIcon.ico" />
+    <EmbeddedResource Include="Resources\EventLotteryProgramIcon.ico" />
     <Content Include="MetroFramework.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
