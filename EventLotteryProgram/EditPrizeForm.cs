@@ -21,7 +21,7 @@ namespace EventLotteryProgram
 
         private void EditPriceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Validate())
+            if (!ValidatePrizeRow())
             {
                 e.Cancel = true;
                 return;
@@ -50,7 +50,7 @@ namespace EventLotteryProgram
             _mainForm.SetPrize(prizes);
         }
 
-        private bool Validate()
+        private bool ValidatePrizeRow()
         {
             foreach (DataGridViewRow prize in this.dataGridView1.Rows)
             {
