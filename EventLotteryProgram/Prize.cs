@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HusuabiEventLotteryProgram
+namespace EventLotteryProgram
 {
     public struct Prize
     {

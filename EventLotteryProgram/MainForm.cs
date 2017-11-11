@@ -15,11 +15,11 @@ using System.Threading;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 
-namespace HusuabiEventLotteryProgram
+namespace EventLotteryProgram
 {
     public partial class MainForm : MetroForm
     {
-        private const string ProgramVersion = "1.2.0";
+        private const string ProgramVersion = "1.0.0";
         private readonly PrivateFontCollection _privateFonts = new PrivateFontCollection();
         private List<People> _peoples = new List<People>();
         private List<Prize> _prizes = new List<Prize>();
@@ -28,7 +28,7 @@ namespace HusuabiEventLotteryProgram
 
         public MainForm()
         {
-            AddFontFromResource("HusuabiEventLotteryProgram.NanumSquareR.ttf");
+            AddFontFromResource("EventLotteryProgram.NanumSquareR.ttf");
 
             this.StyleManager = this.metroStyleManager;
             InitializeComponent();
@@ -334,7 +334,7 @@ namespace HusuabiEventLotteryProgram
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.Text = "허수아비 이벤트 추첨 프로그램 v" + ProgramVersion;
+            this.Text = "이벤트 추첨 프로그램 v" + ProgramVersion;
 
             DisableCheck();
             new Thread(new ThreadStart(stats)).Start();
@@ -349,7 +349,7 @@ namespace HusuabiEventLotteryProgram
         {
             var assembly = Assembly.GetExecutingAssembly();
             var programIconStream =
-                assembly.GetManifestResourceStream("HusuabiEventLotteryProgram.HusuabiEventLotteryProgramIcon.ico");
+                assembly.GetManifestResourceStream("EventLotteryProgram.EventLotteryProgramIcon.ico");
 
             if (programIconStream == null)
             {
@@ -367,7 +367,7 @@ namespace HusuabiEventLotteryProgram
                 using (var client = new WebClient())
                 {
                     byte[] response =
-                        client.DownloadData("http://checker.horyu.me/program/HusuabiEventLotteryProgram/" +
+                        client.DownloadData("http://checker.horyu.me/program/EventLotteryProgram/" +
                                             ProgramVersion); //byte[] 값 수신
                     string responseString = Encoding.UTF8.GetString(response); //수신값 string로 변환
 
@@ -404,7 +404,7 @@ namespace HusuabiEventLotteryProgram
                 {
                     var values = new NameValueCollection();
                     string[] os_info = getOSInfo();
-                    values["program"] = "허수아비_이벤트_추첨_프로그램";
+                    values["program"] = "EventLotteryProgram";
                     values["version"] = ProgramVersion;
                     values["username"] = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                     values["caption"] = os_info[0];

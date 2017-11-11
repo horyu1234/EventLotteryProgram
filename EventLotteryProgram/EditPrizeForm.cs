@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 
-namespace HusuabiEventLotteryProgram
+namespace EventLotteryProgram
 {
     public partial class EditPrizeForm : MetroForm
     {
@@ -97,7 +97,7 @@ namespace HusuabiEventLotteryProgram
         {
             var assembly = Assembly.GetExecutingAssembly();
             var programIconStream =
-                assembly.GetManifestResourceStream("HusuabiEventLotteryProgram.HusuabiEventLotteryProgramIcon.ico");
+                assembly.GetManifestResourceStream("EventLotteryProgram.EventLotteryProgramIcon.ico");
 
             if (programIconStream == null)
             {

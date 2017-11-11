@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HusuabiEventLotteryProgram.Properties
+namespace EventLotteryProgram.Properties
 {
 
 

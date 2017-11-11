@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HusuabiEventLotteryProgram
+namespace EventLotteryProgram
 {
     public struct People
     {

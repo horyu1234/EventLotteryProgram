@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using Thread = System.Threading.Thread;
 
-namespace HusuabiEventLotteryProgram
+namespace EventLotteryProgram
 {
     public partial class EditPeopleForm : MetroForm
     {
@@ -41,7 +41,7 @@ namespace HusuabiEventLotteryProgram
         {
             var assembly = Assembly.GetExecutingAssembly();
             var programIconStream =
-                assembly.GetManifestResourceStream("HusuabiEventLotteryProgram.HusuabiEventLotteryProgramIcon.ico");
+                assembly.GetManifestResourceStream("EventLotteryProgram.EventLotteryProgramIcon.ico");
 
             if (programIconStream == null)
             {
