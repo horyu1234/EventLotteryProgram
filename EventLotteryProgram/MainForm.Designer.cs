@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.btn_edit_people = new MetroFramework.Controls.MetroButton();
             this.btn_edit_prize = new MetroFramework.Controls.MetroButton();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.btn_pickup_one = new MetroFramework.Controls.MetroButton();
             this.cbx_multi_phone = new MetroFramework.Controls.MetroCheckBox();
             this.cbx_hide = new MetroFramework.Controls.MetroCheckBox();
@@ -46,6 +46,17 @@
             // metroStyleManager
             // 
             this.metroStyleManager.Owner = this;
+            // 
+            // treeView1
+            // 
+            this.metroStyleExtender.SetApplyMetroTheme(this.treeView1, true);
+            this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.treeView1.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.treeView1.Location = new System.Drawing.Point(23, 63);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(555, 473);
+            this.treeView1.TabIndex = 3;
             // 
             // btn_edit_people
             // 
@@ -64,17 +75,6 @@
             this.btn_edit_prize.TabIndex = 2;
             this.btn_edit_prize.Text = "상품 수정";
             this.btn_edit_prize.Click += new System.EventHandler(this.btn_edit_prize_Click);
-            // 
-            // treeView1
-            // 
-            this.metroStyleExtender.SetApplyMetroTheme(this.treeView1, true);
-            this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.treeView1.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.treeView1.Location = new System.Drawing.Point(23, 63);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(555, 473);
-            this.treeView1.TabIndex = 3;
             // 
             // btn_pickup_one
             // 
@@ -105,7 +105,7 @@
             this.cbx_hide.Name = "cbx_hide";
             this.cbx_hide.Size = new System.Drawing.Size(280, 15);
             this.cbx_hide.TabIndex = 8;
-            this.cbx_hide.Text = "개인정보 일부 가림 (찰영 중 반드시 활성화 필요)";
+            this.cbx_hide.Text = "개인정보 일부 가림 (촬영 중 반드시 활성화 필요)";
             this.cbx_hide.CheckedChanged += new System.EventHandler(this.cbx_hide_CheckedChanged);
             // 
             // timer1
