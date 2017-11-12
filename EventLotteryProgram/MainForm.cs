@@ -200,6 +200,9 @@ namespace EventLotteryProgram
 
         private void btn_pickup_one_Click(object sender, EventArgs e)
         {
+            this.btn_edit_prize.Enabled = false;
+            this.btn_edit_prize.Text = "상품 수정\n(추첨 시작 시 수정 불가)";
+
             if (!Lottery())
             {
                 MessageBox.Show("더 이상 추첨할 상품이 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
