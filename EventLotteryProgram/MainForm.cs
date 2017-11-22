@@ -91,6 +91,13 @@ namespace EventLotteryProgram
         public void SetPeople(List<People> peoples)
         {
             this._peoples = peoples;
+            UpdateStatusText();
+        }
+
+        public void UpdateStatusText()
+        {
+            this.label_status.Text = "시스템 시간: " + DateTime.Now +
+                                     "\n추첨 대상자 수: " + this._peoples.Count + "명";
         }
 
         private void UpdateTree(bool whenLottery = false)
@@ -345,6 +352,7 @@ namespace EventLotteryProgram
             SetProgramIcon();
 
             SetFont(this.treeView1);
+            SetFont(this.label_status);
         }
 
         private void SetProgramIcon()
@@ -512,6 +520,11 @@ namespace EventLotteryProgram
             this.btn_pickup_one.Text = "추첨";
             this.btn_pickup_one.Enabled = true;
             this.timer1.Stop();
+        }
+
+        private void timer_status_Tick(object sender, EventArgs e)
+        {
+            UpdateStatusText();
         }
     }
 }

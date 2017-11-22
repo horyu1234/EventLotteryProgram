@@ -39,6 +39,8 @@
             this.cbx_hide = new MetroFramework.Controls.MetroCheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label_status = new MetroFramework.Controls.MetroLabel();
+            this.timer_status = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -125,11 +127,29 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
+            // label_status
+            // 
+            this.label_status.AutoSize = true;
+            this.label_status.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.label_status.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.label_status.Location = new System.Drawing.Point(370, 10);
+            this.label_status.Name = "label_status";
+            this.label_status.Size = new System.Drawing.Size(302, 50);
+            this.label_status.TabIndex = 13;
+            this.label_status.Text = "시스템 시간: 0000-00-00 오전 00:00\r\n추첨 대상자 수: 0명";
+            // 
+            // timer_status
+            // 
+            this.timer_status.Enabled = true;
+            this.timer_status.Interval = 500;
+            this.timer_status.Tick += new System.EventHandler(this.timer_status_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(879, 621);
+            this.Controls.Add(this.label_status);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbx_hide);
             this.Controls.Add(this.cbx_multi_phone);
@@ -159,6 +179,8 @@
         private MetroFramework.Controls.MetroCheckBox cbx_hide;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel label_status;
+        private System.Windows.Forms.Timer timer_status;
     }
 }
 
