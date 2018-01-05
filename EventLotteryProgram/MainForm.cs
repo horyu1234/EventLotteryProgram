@@ -224,6 +224,12 @@ namespace EventLotteryProgram
                 return false;
             }
 
+            if (_peoples.Count == 0)
+            {
+                MessageBox.Show("더 이상 추첨할 사람이 없습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+
             int randomNumber = Between(0, _peoples.Count - 1);
             People people = _peoples[randomNumber];
 
