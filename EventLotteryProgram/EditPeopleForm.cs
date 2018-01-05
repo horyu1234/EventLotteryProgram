@@ -256,11 +256,13 @@ namespace EventLotteryProgram
             if (bom[0] == 0xff && bom[1] == 0xfe) return Encoding.Unicode; //UTF-16LE
             if (bom[0] == 0xfe && bom[1] == 0xff) return Encoding.BigEndianUnicode; //UTF-16BE
             if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) return Encoding.UTF32;
-            return Encoding.Default;
+            return Encoding.UTF8;
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("불러오는 파일의 인코딩은\nUTF-8 (BOM 있음) 을 권장합니다.\n\n이외의 인코딩의 경우 한글이 깨질 수 있습니다.", "인코딩 안내", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Title = "파일 선택";
             fileDialog.Filter = "텍스트 파일(*.txt)|*.txt|모든 파일(*.*)|*.*";
