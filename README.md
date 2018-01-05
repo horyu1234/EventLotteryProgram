@@ -15,6 +15,6 @@
 ---
 
 프로그램 사용 동영상
-https://www.youtube.com/watch?v=O2NuaMEgOa4
+https://youtu.be/BeRYhrfCOIg
 
-[![허수아비 이벤트 추첨 프로그램 v1.1_사용 영상](https://img.youtube.com/vi/O2NuaMEgOa4/0.jpg)](https://www.youtube.com/watch?v=O2NuaMEgOa4)
+[![이벤트 추첨 프로그램 v1.4.0_사용 영상](https://img.youtube.com/vi/BeRYhrfCOIg/0.jpg)](https://www.youtube.com/watch?v=BeRYhrfCOIg)
