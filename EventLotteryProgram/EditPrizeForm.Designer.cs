@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPrizeForm));
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -92,6 +91,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditPrizeForm";
+            this.Resizable = false;
             this.Text = "상품 수정";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditPriceForm_FormClosing);
             this.Load += new System.EventHandler(this.EditPrizeForm_Load);

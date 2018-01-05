@@ -17,6 +17,7 @@ namespace EventLotteryProgram
     {
         private readonly MainForm _mainForm;
         private bool _ignoreCloseEvent = false;
+        private bool _savedPeoples = false;
 
         public EditPeopleForm(MainForm mainForm)
         {
@@ -29,8 +30,17 @@ namespace EventLotteryProgram
             SetProgramIcon();
 
             _mainForm.SetFont(this.listView1);
+            _mainForm.SetFont(this.groupBox2);
             _mainForm.SetFont(this.groupBox1);
-            _mainForm.SetFont(this.label1);
+            _mainForm.SetFont(this.metroLabel2);
+            _mainForm.SetFont(this.metroLabel1);
+            _mainForm.SetFont(this.tbx_from_directly);
+            _mainForm.SetFont(this.tbx_from_file);
+            _mainForm.SetFont(this.btn_from_directly);
+            _mainForm.SetFont(this.btn_from_file);
+
+            _ignoreCloseEvent = false;
+            _savedPeoples = false;
 
             Thread thread = new Thread(new ThreadStart(LoadPeoples));
             thread.Start();
@@ -53,10 +63,9 @@ namespace EventLotteryProgram
 
         private void LoadPeoples()
         {
+            _ignoreCloseEvent = true;
+            this.btn_from_directly.Enabled = false;
             this.btn_from_file.Enabled = false;
-            this.tbx_people_name.Enabled = false;
-            this.tbx_people_phone.Enabled = false;
-            this.btn_people_add.Enabled = false;
 
             this.Text = "추첨 대상자 수정 [불러오는 중...]";
             this.progressBar1.Maximum = _mainForm.GetPeople().Count;
@@ -69,12 +78,7 @@ namespace EventLotteryProgram
             {
                 this.progressBar1.Value++;
 
-                ListViewItem listViewItem =
-                    new ListViewItem(people.Date.HasValue
-                        ? people.Date.Value.ToString("yyyy-MM-dd HH:mm:ss")
-                        : "자동 인식 실패");
-                listViewItem.SubItems.Add(people.Name);
-                listViewItem.SubItems.Add(people.Phone);
+                ListViewItem listViewItem = new ListViewItem(people.Info);
 
                 this.listView1.Items.Add(listViewItem);
             }
@@ -83,57 +87,66 @@ namespace EventLotteryProgram
 
             this.Text = "추첨 대상자 수정";
 
+            this.btn_from_directly.Enabled = true;
             this.btn_from_file.Enabled = true;
-            this.tbx_people_name.Enabled = true;
-            this.tbx_people_phone.Enabled = true;
-            this.btn_people_add.Enabled = true;
+
+            _ignoreCloseEvent = false;
 
             this.Refresh();
         }
 
-        private void btn_people_add_Click(object sender, EventArgs e)
-        {
-            AddPeople();
-        }
-
         private void AddPeople()
         {
-            if (string.IsNullOrEmpty(this.tbx_people_name.Text) || string.IsNullOrEmpty(this.tbx_people_phone.Text))
+            _ignoreCloseEvent = true;
+            this.btn_from_directly.Enabled = false;
+            this.btn_from_directly.Text = "불러오는 중";
+
+            this.progressBar1.Maximum = this.tbx_from_directly.Lines.Length;
+            this.progressBar1.Value = 0;
+
+            this.listView1.BeginUpdate();
+            foreach (string line in this.tbx_from_directly.Lines)
             {
-                MessageBox.Show("이름과 전화번호를 입력해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                this.progressBar1.Value++;
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    continue;
+                }
+
+                ListViewItem listViewItem = new ListViewItem(line);
+                this.listView1.Items.Add(listViewItem);
             }
 
-            ListViewItem listViewItem = new ListViewItem("없음");
-            listViewItem.SubItems.Add(this.tbx_people_name.Text);
-            listViewItem.SubItems.Add(this.tbx_people_phone.Text);
-
-            this.listView1.Items.Add(listViewItem);
-
-            this.tbx_people_name.Clear();
-            this.tbx_people_phone.Clear();
+            this.listView1.EndUpdate();
+            this.tbx_from_directly.Clear();
+            this.btn_from_directly.Text = "직접 입력해서 불러오기";
+            this.btn_from_directly.Enabled = true;
+            _ignoreCloseEvent = false;
         }
 
         private void EditPeopleForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_ignoreCloseEvent)
             {
+                e.Cancel = true;
                 return;
             }
 
-            e.Cancel = true;
+            if (!_savedPeoples)
+            {
+                e.Cancel = true;
 
-            Thread thread = new Thread(new ThreadStart(SavePeoples));
-            thread.Start();
+                Thread thread = new Thread(new ThreadStart(SavePeoples));
+                thread.Start();
+            }
         }
 
         private void SavePeoples()
         {
             _ignoreCloseEvent = true;
+            this.btn_from_directly.Enabled = false;
             this.btn_from_file.Enabled = false;
-            this.tbx_people_name.Enabled = false;
-            this.tbx_people_phone.Enabled = false;
-            this.btn_people_add.Enabled = false;
 
             this.Text = "추첨 대상자 수정 [저장 중...]";
             this.progressBar1.Maximum = this.listView1.Items.Count;
@@ -146,25 +159,16 @@ namespace EventLotteryProgram
             {
                 this.progressBar1.Value++;
 
-                DateTime? dateTime;
-                try
-                {
-                    dateTime = DateTime.ParseExact(peopleItem.Text, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-                }
-                catch
-                {
-                    dateTime = null;
-                }
-
                 People people = new People();
-                people.Date = dateTime;
-                people.Name = peopleItem.SubItems[1].Text;
-                people.Phone = peopleItem.SubItems[2].Text;
+                people.Info = peopleItem.Text;
 
                 peoples.Add(people);
             }
 
             _mainForm.SetPeople(peoples);
+
+            _savedPeoples = true;
+            _ignoreCloseEvent = false;
 
             this.Close();
         }
@@ -186,110 +190,55 @@ namespace EventLotteryProgram
             }
         }
 
-        private void tbx_people_phone_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                AddPeople();
-                this.tbx_people_name.Focus();
-            }
-        }
-
-        private void metroRadioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            this.metroTextBox2.Enabled = this.metroRadioButton3.Checked;
-
-            if (this.metroRadioButton3.Checked)
-            {
-                if (string.IsNullOrEmpty(this.metroTextBox2.Text))
-                {
-                    this.label1.Text = "[인식 가능한 라인 예시]\n경고: 문자를 입력해주세요.";
-                }
-                else
-                {
-                    this.label1.Text = "[인식 가능한 라인 예시]\n홍길동" + this.metroTextBox2.Text + "010-1234-5678\n홍길동" +
-                                       this.metroTextBox2.Text + "01012345678";
-                }
-            }
-        }
-
-        private void metroRadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.metroRadioButton1.Checked)
-            {
-                this.label1.Text = "[인식 가능한 라인 예시]\n홍길동 010-1234-5678\n홍길동 01012345678";
-                this.metroTextBox2.Text = " ";
-            }
-        }
-
-        private void metroRadioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.metroRadioButton2.Checked)
-            {
-                this.label1.Text = "[인식 가능한 라인 예시]\n홍길동/010-1234-5678\n홍길동/01012345678";
-                this.metroTextBox2.Text = "/";
-            }
-        }
-
-        private void metroTextBox2_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.metroTextBox2.Text))
-            {
-                this.label1.Text = "[인식 가능한 라인 예시]\n경고: 문자를 입력해주세요.";
-            }
-            else
-            {
-                this.label1.Text = "[인식 가능한 라인 예시]\n홍길동" + this.metroTextBox2.Text + "010-1234-5678\n홍길동" +
-                                   this.metroTextBox2.Text + "01012345678";
-            }
-        }
-
         private void btn_from_file_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.fileInput.Text))
+            if (string.IsNullOrEmpty(this.tbx_from_file.Text))
             {
                 MessageBox.Show("파일을 선택해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.metroTextBox2.Text))
-            {
-                MessageBox.Show("문자를 입력해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            GetFromFile();
+            Thread thread = new Thread(new ThreadStart(GetFromFile));
+            thread.Start();
         }
 
         private void GetFromFile()
         {
+            _ignoreCloseEvent = true;
+            this.btn_from_file.Enabled = false;
+            this.btn_from_file.Text = "불러오는 중";
+
             try
             {
-                string[] lines = File.ReadAllLines(this.fileInput.Text, GetEncoding(this.fileInput.Text));
+                string[] lines = File.ReadAllLines(this.tbx_from_file.Text, GetEncoding(this.tbx_from_file.Text));
 
+                this.progressBar1.Maximum = lines.Length;
+                this.progressBar1.Value = 0;
+                this.listView1.BeginUpdate();
                 foreach (string line in lines)
                 {
-                    string[] splited = Regex.Split(line, this.metroTextBox2.Text);
+                    this.progressBar1.Value++;
 
-                    if (splited.Length < 2)
+                    if (string.IsNullOrEmpty(line))
                     {
                         continue;
                     }
 
-                    string name = splited[0];
-                    string phone = getPhone(splited);
-
-                    ListViewItem listViewItem = new ListViewItem("없음");
-                    listViewItem.SubItems.Add(name);
-                    listViewItem.SubItems.Add(phone);
+                    ListViewItem listViewItem = new ListViewItem(line);
 
                     this.listView1.Items.Add(listViewItem);
                 }
+
+                this.listView1.EndUpdate();
             }
             catch (Exception e)
             {
                 MessageBox.Show("오류가 발생하였습니다.\n" + e.Message, "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            this.btn_from_file.Text = "파일로 부터 불러오기";
+            this.btn_from_file.Enabled = true;
+            _ignoreCloseEvent = false;
         }
 
         private Encoding GetEncoding(string filename)
@@ -310,18 +259,6 @@ namespace EventLotteryProgram
             return Encoding.Default;
         }
 
-        private string getPhone(string[] splited)
-        {
-            string result = "";
-
-            for (int i = 1; i < splited.Length; i++)
-            {
-                result += splited[i];
-            }
-
-            return result;
-        }
-
         private void metroButton1_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -329,8 +266,20 @@ namespace EventLotteryProgram
             fileDialog.Filter = "텍스트 파일(*.txt)|*.txt|모든 파일(*.*)|*.*";
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.fileInput.Text = fileDialog.FileName;
+                this.tbx_from_file.Text = fileDialog.FileName;
             }
+        }
+
+        private void btn_from_directly_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.tbx_from_directly.Text))
+            {
+                MessageBox.Show("추첨 대상자를 입력해주세요.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Thread thread = new Thread(new ThreadStart(AddPeople));
+            thread.Start();
         }
     }
 }

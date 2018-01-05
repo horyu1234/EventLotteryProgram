@@ -19,12 +19,13 @@ namespace EventLotteryProgram
 {
     public partial class MainForm : MetroForm
     {
-        private const string ProgramVersion = "1.3.0";
+        private const string ProgramVersion = "1.4.0";
         private readonly PrivateFontCollection _privateFonts = new PrivateFontCollection();
         private List<People> _peoples = new List<People>();
         private List<Prize> _prizes = new List<Prize>();
         private List<Prize> _lotteryPrizes = new List<Prize>();
         private List<People> _lotteryList = new List<People>();
+        private bool ignoreCBXHideEvent = false;
 
         public MainForm()
         {
@@ -33,14 +34,6 @@ namespace EventLotteryProgram
             this.StyleManager = this.metroStyleManager;
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-
-            //            People people = new People();
-            //            for (int i = 10; i <= 1000000; i++)
-            //            {
-            //                people.Name = "테스트";
-            //                people.Phone = "010-00" + i + "-1234";
-            //                _peoples.Add(people);
-            //            }
         }
 
         private void AddFontFromResource(string resourceName)
@@ -161,30 +154,27 @@ namespace EventLotteryProgram
             {
                 foreach (People ppl in prize.To)
                 {
-                    string name = ppl.Name;
-                    string phone = ppl.Phone;
-
-                    if (this.cbx_hide.Checked)
+                    string peopleInfo = ppl.Info;
+                    if (this.cbx_protect_name.Checked)
                     {
-                        phone = HidePrivacy(phone, 7);
+                        peopleInfo = PrivacyUtils.HideName(peopleInfo);
                     }
 
-                    treeNode2.Nodes.Add(name + " / " + phone);
+                    if (this.cbx_protect_email.Checked)
+                    {
+                        peopleInfo = PrivacyUtils.HideEmail(peopleInfo);
+                    }
+
+                    if (this.cbx_protect_phone.Checked)
+                    {
+                        peopleInfo = PrivacyUtils.HidePhone(peopleInfo);
+                    }
+
+                    treeNode2.Nodes.Add(peopleInfo);
                 }
             }
-            treeNode.Nodes.Add(treeNode2);
-        }
 
-        private string HidePrivacy(string phone, int amount)
-        {
-            string result = "";
-            int i = 0;
-            foreach (char c in phone)
-            {
-                i++;
-                result += i > amount ? "*" : new string(new char[] {c});
-            }
-            return result;
+            treeNode.Nodes.Add(treeNode2);
         }
 
         private Prize? GetLotteryPrize(Prize prize)
@@ -196,6 +186,7 @@ namespace EventLotteryProgram
                     return lotteryPriz;
                 }
             }
+
             return null;
         }
 
@@ -207,7 +198,10 @@ namespace EventLotteryProgram
 
         private void btn_pickup_one_Click(object sender, EventArgs e)
         {
+            this.btn_edit_people.Enabled = false;
             this.btn_edit_prize.Enabled = false;
+
+            this.btn_edit_people.Text = "추첨 대상자 수정\n(추첨 시작 시 수정 불가)";
             this.btn_edit_prize.Text = "상품 수정\n(추첨 시작 시 수정 불가)";
 
             if (!Lottery())
@@ -246,6 +240,7 @@ namespace EventLotteryProgram
                     return true;
                 }
             }
+
             _lotteryList.Add(people);
 
             Prize prizeNotNull = prize.Value;
@@ -255,6 +250,7 @@ namespace EventLotteryProgram
             {
                 Tos.AddRange(prizeNotNull.To);
             }
+
             Tos.Add(people);
 
             prizeNotNull.To = Tos;
@@ -308,8 +304,7 @@ namespace EventLotteryProgram
         {
             foreach (People people1 in _lotteryList)
             {
-                if (this.cbx_multi_phone.Checked && people1.Phone.Replace("-", string.Empty)
-                        .Equals(people.Phone.Replace("-", string.Empty)))
+                if (people.Info.Equals(people1.Info))
                 {
                     return true;
                 }
@@ -444,6 +439,7 @@ namespace EventLotteryProgram
                     if (prop.Name.Equals("OSArchitecture")) output[2] = prop.Value.ToString();
                 }
             }
+
             return output;
         }
 
@@ -470,51 +466,6 @@ namespace EventLotteryProgram
             control.Font = new Font(_privateFonts.Families[0], controlFont.Size, controlFont.Style);
         }
 
-        private bool ignoreCBXHideEvent = false;
-
-        private void cbx_hide_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ignoreCBXHideEvent)
-            {
-                return;
-            }
-
-            if (this.cbx_hide.Checked)
-            {
-                UpdateTree(true);
-            }
-            else
-            {
-                ignoreCBXHideEvent = true;
-                this.cbx_hide.Checked = true;
-
-                if (
-                    MessageBox.Show(
-                        "본 체크 박스를 해제할 경우, 가려진 개인 정보들이 표시됩니다." +
-                        "\n추첨 방송 중일 경우 절대 사용하지 마시기 바랍니다." +
-                        "\n\n정말 개인 정보를 표시하시겠습니까?", "경고",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    ignoreCBXHideEvent = false;
-                    return;
-                }
-
-                if (
-                    MessageBox.Show(
-                        "개인 정보 표시를 위해서는 한번 더 \"예\" 를 눌러주시기 바랍니다.", "경고",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    ignoreCBXHideEvent = false;
-                    return;
-                }
-
-                this.cbx_hide.Checked = false;
-                ignoreCBXHideEvent = false;
-
-                UpdateTree(true);
-            }
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.btn_pickup_one.Text = "추첨";
@@ -525,6 +476,124 @@ namespace EventLotteryProgram
         private void timer_status_Tick(object sender, EventArgs e)
         {
             UpdateStatusText();
+        }
+
+        private void cbx_protect_name_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ignoreCBXHideEvent)
+            {
+                return;
+            }
+
+            if (this.cbx_protect_name.Checked)
+            {
+                UpdateTree(true);
+            }
+            else
+            {
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_name.Checked = true;
+                ignoreCBXHideEvent = false;
+
+                if (!ShowPrivacyNotice())
+                {
+                    return;
+                }
+
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_name.Checked = false;
+                ignoreCBXHideEvent = false;
+
+                UpdateTree(true);
+            }
+        }
+
+        private void cbx_protect_email_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ignoreCBXHideEvent)
+            {
+                return;
+            }
+
+            if (this.cbx_protect_email.Checked)
+            {
+                UpdateTree(true);
+            }
+            else
+            {
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_email.Checked = true;
+                ignoreCBXHideEvent = false;
+
+                if (!ShowPrivacyNotice())
+                {
+                    return;
+                }
+
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_email.Checked = false;
+                ignoreCBXHideEvent = false;
+
+                UpdateTree(true);
+            }
+        }
+
+        private void cbx_protect_phone_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ignoreCBXHideEvent)
+            {
+                return;
+            }
+
+            if (this.cbx_protect_phone.Checked)
+            {
+                UpdateTree(true);
+            }
+            else
+            {
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_phone.Checked = true;
+                ignoreCBXHideEvent = false;
+
+                if (!ShowPrivacyNotice())
+                {
+                    return;
+                }
+
+                ignoreCBXHideEvent = true;
+                this.cbx_protect_phone.Checked = false;
+                ignoreCBXHideEvent = false;
+
+                UpdateTree(true);
+            }
+        }
+
+        private bool ShowPrivacyNotice()
+        {
+            if (
+                MessageBox.Show(
+                    "본 체크 박스를 해제할 경우, 가려진 개인 정보들이 표시됩니다." +
+                    "\n추첨 영상을 촬영하거나 실시간 방송 중일 경우 절대 사용하지 마시기 바랍니다." +
+                    "\n\n정말 개인 정보를 표시하시겠습니까?", "경고",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return false;
+            }
+
+            if (
+                MessageBox.Show(
+                    "개인 정보 표시를 위해서는 한번 더 \"예\" 를 눌러주시기 바랍니다.", "경고",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer", "https://github.com/horyu1234/EventLotteryProgram");
         }
     }
 }

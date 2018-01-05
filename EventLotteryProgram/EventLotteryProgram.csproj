@@ -87,11 +87,15 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="People.cs" />
+    <Compile Include="PrivacyUtils.cs" />
     <Compile Include="Prize.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EditPeopleForm.resx">
       <DependentUpon>EditPeopleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPrizeForm.resx">
+      <DependentUpon>EditPrizeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -125,7 +129,7 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EventLotteryProgramFooter.png" />
+    <EmbeddedResource Include="Resources\EventLotteryProgramFooter.png" />
     <EmbeddedResource Include="Resources\EventLotteryProgramIcon.ico" />
     <Content Include="MetroFramework.txt" />
   </ItemGroup>

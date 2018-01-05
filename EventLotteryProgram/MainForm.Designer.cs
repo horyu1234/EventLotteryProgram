@@ -35,13 +35,17 @@
             this.btn_edit_people = new MetroFramework.Controls.MetroButton();
             this.btn_edit_prize = new MetroFramework.Controls.MetroButton();
             this.btn_pickup_one = new MetroFramework.Controls.MetroButton();
-            this.cbx_multi_phone = new MetroFramework.Controls.MetroCheckBox();
-            this.cbx_hide = new MetroFramework.Controls.MetroCheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_status = new MetroFramework.Controls.MetroLabel();
             this.timer_status = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbx_protect_phone = new MetroFramework.Controls.MetroCheckBox();
+            this.cbx_protect_name = new MetroFramework.Controls.MetroCheckBox();
+            this.cbx_protect_email = new MetroFramework.Controls.MetroCheckBox();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,45 +91,10 @@
             this.btn_pickup_one.Text = "추첨";
             this.btn_pickup_one.Click += new System.EventHandler(this.btn_pickup_one_Click);
             // 
-            // cbx_multi_phone
-            // 
-            this.cbx_multi_phone.AutoSize = true;
-            this.cbx_multi_phone.Checked = true;
-            this.cbx_multi_phone.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbx_multi_phone.Location = new System.Drawing.Point(584, 471);
-            this.cbx_multi_phone.Name = "cbx_multi_phone";
-            this.cbx_multi_phone.Size = new System.Drawing.Size(160, 15);
-            this.cbx_multi_phone.TabIndex = 7;
-            this.cbx_multi_phone.Text = "중복 추첨 제외 - 전화번호";
-            // 
-            // cbx_hide
-            // 
-            this.cbx_hide.AutoSize = true;
-            this.cbx_hide.Checked = true;
-            this.cbx_hide.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbx_hide.Location = new System.Drawing.Point(584, 450);
-            this.cbx_hide.Name = "cbx_hide";
-            this.cbx_hide.Size = new System.Drawing.Size(280, 15);
-            this.cbx_hide.TabIndex = 8;
-            this.cbx_hide.Text = "개인정보 일부 가림 (촬영 중 반드시 활성화 필요)";
-            this.cbx_hide.CheckedChanged += new System.EventHandler(this.cbx_hide_CheckedChanged);
-            // 
             // timer1
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::EventLotteryProgram.Properties.Resources.EventLotteryProgramFooter;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 548);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(833, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
             // 
             // label_status
             // 
@@ -144,23 +113,100 @@
             this.timer_status.Interval = 500;
             this.timer_status.Tick += new System.EventHandler(this.timer_status_Tick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cbx_protect_phone);
+            this.groupBox1.Controls.Add(this.cbx_protect_name);
+            this.groupBox1.Controls.Add(this.cbx_protect_email);
+            this.groupBox1.Controls.Add(this.metroLabel1);
+            this.groupBox1.Location = new System.Drawing.Point(584, 205);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(272, 231);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "개인정보 보호";
+            // 
+            // cbx_protect_phone
+            // 
+            this.cbx_protect_phone.AutoSize = true;
+            this.cbx_protect_phone.Checked = true;
+            this.cbx_protect_phone.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbx_protect_phone.Location = new System.Drawing.Point(6, 194);
+            this.cbx_protect_phone.Name = "cbx_protect_phone";
+            this.cbx_protect_phone.Size = new System.Drawing.Size(164, 15);
+            this.cbx_protect_phone.TabIndex = 3;
+            this.cbx_protect_phone.Text = "전화번호 형식 일부 가리기";
+            this.cbx_protect_phone.UseVisualStyleBackColor = true;
+            this.cbx_protect_phone.CheckedChanged += new System.EventHandler(this.cbx_protect_phone_CheckedChanged);
+            // 
+            // cbx_protect_name
+            // 
+            this.cbx_protect_name.AutoSize = true;
+            this.cbx_protect_name.Checked = true;
+            this.cbx_protect_name.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbx_protect_name.Location = new System.Drawing.Point(6, 152);
+            this.cbx_protect_name.Name = "cbx_protect_name";
+            this.cbx_protect_name.Size = new System.Drawing.Size(140, 15);
+            this.cbx_protect_name.TabIndex = 2;
+            this.cbx_protect_name.Text = "이름 형식 일부 가리기";
+            this.cbx_protect_name.UseVisualStyleBackColor = true;
+            this.cbx_protect_name.CheckedChanged += new System.EventHandler(this.cbx_protect_name_CheckedChanged);
+            // 
+            // cbx_protect_email
+            // 
+            this.cbx_protect_email.AutoSize = true;
+            this.cbx_protect_email.Checked = true;
+            this.cbx_protect_email.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbx_protect_email.Location = new System.Drawing.Point(6, 173);
+            this.cbx_protect_email.Name = "cbx_protect_email";
+            this.cbx_protect_email.Size = new System.Drawing.Size(152, 15);
+            this.cbx_protect_email.TabIndex = 1;
+            this.cbx_protect_email.Text = "이메일 형식 일부 가리기";
+            this.cbx_protect_email.UseVisualStyleBackColor = true;
+            this.cbx_protect_email.CheckedChanged += new System.EventHandler(this.cbx_protect_email_CheckedChanged);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel1.Location = new System.Drawing.Point(6, 17);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(217, 114);
+            this.metroLabel1.TabIndex = 0;
+            this.metroLabel1.Text = "당첨자의 개인 정보 일부를\r\n가리는 기능입니다.\r\n\r\n추첨 영상을 촬영하거나\r\n실시간 방송 중일 경우\r\n반드시 활성화해주시기 바랍니다.";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::EventLotteryProgram.Properties.Resources.EventLotteryProgramFooter;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 548);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(833, 75);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 621);
+            this.ClientSize = new System.Drawing.Size(879, 649);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label_status);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.cbx_hide);
-            this.Controls.Add(this.cbx_multi_phone);
             this.Controls.Add(this.btn_pickup_one);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.btn_edit_prize);
             this.Controls.Add(this.btn_edit_people);
             this.Name = "MainForm";
+            this.Resizable = false;
             this.Text = "이벤트 추첨 프로그램";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -175,12 +221,15 @@
         private MetroFramework.Controls.MetroButton btn_edit_prize;
         private System.Windows.Forms.TreeView treeView1;
         private MetroFramework.Controls.MetroButton btn_pickup_one;
-        private MetroFramework.Controls.MetroCheckBox cbx_multi_phone;
-        private MetroFramework.Controls.MetroCheckBox cbx_hide;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private MetroFramework.Controls.MetroLabel label_status;
         private System.Windows.Forms.Timer timer_status;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroCheckBox cbx_protect_email;
+        private MetroFramework.Controls.MetroCheckBox cbx_protect_phone;
+        private MetroFramework.Controls.MetroCheckBox cbx_protect_name;
     }
 }
 
